@@ -100,10 +100,37 @@ namespace rapidxml
         }
 
         ///////////////////////////////////////////////////////////////////////////
-        // Internal printing operations
-    
-        // Print node
-        template<class OutIt, class Ch>
+	// Internal printing operations
+	// fixed compilation issue by adding the following inline templates (line 106 - 134)
+	// http://stackoverflow.com/questions/14113923/rapidxml-print-header-has-undefined-methods
+	template<class OutIt, class Ch>
+		inline OutIt print_children(OutIt out, const xml_node<Ch> *node, int flags, int indent);
+
+	template<class OutIt, class Ch>
+		inline OutIt print_attributes(OutIt out, const xml_node<Ch> *node, int flags);
+
+	template<class OutIt, class Ch>
+		inline OutIt print_data_node(OutIt out, const xml_node<Ch> *node, int flags, int indent);
+
+	template<class OutIt, class Ch>
+		inline OutIt print_cdata_node(OutIt out, const xml_node<Ch> *node, int flags, int indent);
+
+	template<class OutIt, class Ch>
+		inline OutIt print_element_node(OutIt out, const xml_node<Ch> *node, int flags, int indent);
+
+	template<class OutIt, class Ch>
+		inline OutIt print_declaration_node(OutIt out, const xml_node<Ch> *node, int flags, int indent);
+
+	template<class OutIt, class Ch>
+		inline OutIt print_comment_node(OutIt out, const xml_node<Ch> *node, int flags, int indent);
+
+	template<class OutIt, class Ch>
+		inline OutIt print_doctype_node(OutIt out, const xml_node<Ch> *node, int flags, int indent);
+
+	template<class OutIt, class Ch>
+		inline OutIt print_pi_node(OutIt out, const xml_node<Ch> *node, int flags, int indent);
+	// Print node
+    template<class OutIt, class Ch>
         inline OutIt print_node(OutIt out, const xml_node<Ch> *node, int flags, int indent)
         {
             // Print proper node type
@@ -391,6 +418,9 @@ namespace rapidxml
     }
 
 #ifndef RAPIDXML_NO_STREAMS
+
+    // template<class Ch>
+        // inline std::basic_ostream<Ch> &print(std::basic_ostream<Ch> &out, const xml_node<Ch> &node, int flags = 0);
 
     //! Prints XML to given output stream.
     //! \param out Output stream to print to.
